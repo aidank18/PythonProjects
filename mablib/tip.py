@@ -1,0 +1,5 @@
+amount = input("Bill amount in dollars: ")
+tip = input("Percent tip: ")
+people = input("Number of people: ")
+number = ((float(amount) * (float(tip)/100.0)) + float(amount)) / float(people)
+print("%.2f" % (number))
