@@ -19,10 +19,24 @@ class Queue:
             item = Node(item, None)
         self.queue.appendItem(item)
 
+
     def size(self):
         return self.queue.size()
 
+    def isEmpty(self):
+        if self.size() == 0:
+            return True
+        return False
 
 
-myQ = Queue()
-print(myQ)
+def main():
+    myQ = Queue()
+    myQ.enQueue(7)
+    print(myQ)
+    myQ.enQueue("hi")
+    myQ.enQueue(3.6)
+    myQ.enQueue(56)
+    print(myQ)
+    assert(myQ.isEmpty() == False)
+if __name__ == "__main__":
+    main()

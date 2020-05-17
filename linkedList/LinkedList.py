@@ -11,7 +11,8 @@ class LinkedList:
 
     def __str__(self):
         list = "[" + self.__traverseList(self.__start)
-        list = list[:-2]
+        if not self.isEmpty():
+            list = list[:-2]
         list += "]"
         return list
 
@@ -24,14 +25,16 @@ class LinkedList:
                 return ""
             return 0
         if string:
+            #print(curr.value, curr.next)
             return str(curr.value) + ", " + self.__traverseList(curr.next)
         return 1 + self.__traverseList(curr.next, False)
 
     def appendItem(self, node = None, number = None):
         if node != None:
+            #print(node.value, node.next)
             if self.__start == None:
                 self.__start = node
-                self.__size += self.__traverseList(node)
+                self.__size += self.__traverseList(node, False)
                 return
             self.__addNode(self.__start, node)
             self.__size += 1

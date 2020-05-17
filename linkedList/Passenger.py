@@ -6,9 +6,5 @@ class Passenger:
         self.to = aTo
 
     def __str__(self):
-        return ("[" + str(self.name) + ", " + str(self.start) + ", " +
-        str(self.to) + "]")
-
-
-myPassenger = Passenger()
-print(myPassenger)
+        return ("{" + str(self.name) + ", " + str(self.start) + ", " +
+        str(self.to) + "}")
