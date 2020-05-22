@@ -9,7 +9,7 @@ class Card:
 
     # initializes all necisary values for the program
     def __init__(self, win, front = "", back = "", fHint = "", bHint = "",
-    startOnFront = True, mark = False, left = 100, right = 600, top = 100,
+    startOnFront = True, left = 100, right = 600, top = 100,
     bottom = 400):
         self.window = win
         self.front = front
@@ -17,10 +17,9 @@ class Card:
         self.fHint = fHint
         self.bHint = bHint
         self.onFront = startOnFront
-        self.marked = mark
+        self.startOnFront = startOnFront
         self.canvas = None
         self.messageWindow = None
-        self.markButton = None
         self.flipButton = None
         self.hintButton = None
         self.hintWindow = None
@@ -37,6 +36,7 @@ class Card:
     * Notes: none
     """
     def display(self):
+
         self.createOutline()
         self.addText()
         self.addButtons()
@@ -50,13 +50,12 @@ class Card:
     * Notes: none
     """
     def delete(self):
-        self.canvas.destroy()
-        self.messageWindow.destroy()
-        self.flipButton.destroy()
-        self.hintButton.destroy()
-        if self.hintWindow != none:
-            self.hintWindow.destroy()
-        self.markButton.destroy()
+        self.canvas = self.removeWidget(self.canvas)
+        self.messageWindow = self.removeWidget(self.messageWindow)
+        self.flipButton = self.removeWidget(self.flipButton)
+        self.hintButton = self.removeWidget(self.hintButton)
+        self.hintWindow = self.removeWidget(self.hintWindow)
+        self.onFront = self.startOnFront
         return None
 
     """
@@ -137,11 +136,11 @@ class Card:
             message.config(font = ("Courier", 25))
 
     """
-    * Purpose: adds flip mark and hint buttons
+    * Purpose: adds flip and hint buttons
     * Arguments: none
     * Returns: nothing
     * Effects: none
-    * Notes: should remove the mark button
+    * Notes: none
     """
     def addButtons(self):
         self.flipButton = ttk.Button(self.window, text = "Flip",
@@ -153,26 +152,6 @@ class Card:
         command = self.clickHint)
         self.hintButton.place(x = ((self.right - self.left) / 2) + self.left+60,
          y = self.bottom - 40)
-
-        self.markButton = tk.Button(self.window, text = "Mark",
-         command = self.markCard, font = ("Courier", 15))
-        self.markButton.place(x = 490, y = 120)
-
-    """
-    * Purpose: marks the card for extra practice
-    * Arguments: none
-    * Returns: nothing
-    * Effects: changes the color and size of the text
-    * Notes: should take this out
-    """
-    def markCard(self):
-        if not self.marked:
-            self.markButton.config(fg = "green", font = ("Courier", 25),
-            text = "Marked")
-        else:
-            self.markButton.config(fg = "black", font = ("Courier", 15),
-            text = "Mark")
-        self.marked = not self.marked
 
     """
     * Purpose: changes the card from the front to the back of vice versa
@@ -210,7 +189,8 @@ class Card:
     * Notes: none
     """
     def removeWidget(self, widget):
-        widget.destroy()
+        if widget != None:
+            widget.destroy()
         return None
 
     """
@@ -232,8 +212,8 @@ class Card:
         self.hintWindow.place(x = self.left, y = self.bottom + 30)
 
 
-window = tk.Tk()
-card = Card(window, "Hola", fHint = "aaaaaaaa aaaaa aaaaaa aaaaaaa aaaaaaaaaaa aaaaa aaaa aaaaa",
-back = "Hello")
-card.display()
-window.mainloop()
+# window = tk.Tk()
+# card = Card(window, "1\n2\n3\n4\n5\n6", fHint = "aaaaaaaa aaaaa aaaaaa aaaaaaa aaaaaaaaaaa aaaaa aaaa aaaaa",
+# back = "Hello")
+# card.display()
+# window.mainloop()
