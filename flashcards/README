@@ -7,3 +7,13 @@ Card:
 StudySet:
 2. update marks at end of studying?
 6. move quit button out of class?
+
+EditCard:
+1. fix text centering
+
+EditSet:
+1. reposition done button
+2. make a confirm delete button
+
+Buttons:
+1. make a way to create themed buttons

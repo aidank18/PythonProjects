@@ -10,7 +10,7 @@ class Card:
     # initializes all necisary values for the program
     def __init__(self, win, front = "", back = "", fHint = "", bHint = "",
     startOnFront = True, left = 100, right = 600, top = 100,
-    bottom = 400):
+    bottom = 400, small = False):
         self.window = win
         self.front = front
         self.back = back
@@ -27,6 +27,7 @@ class Card:
         self.right = right
         self.top = top
         self.bottom = bottom
+        self.small = small
 
     """
     * Purpose: displays the notecard in the window given when initialized
@@ -40,6 +41,10 @@ class Card:
         self.createOutline()
         self.addText()
         self.addButtons()
+
+    def displayNB(self):
+        self.createOutline()
+        self.addText()
 
 
     """
@@ -67,13 +72,19 @@ class Card:
     * Notes: none
     """
     def createOutline(self):
-        self.canvas = tk.Canvas(self.window, width = (self.left + self.right),
-        height = (self.bottom + self.top))
-        self.canvas.grid(row = 0, column = 0)
-        self.horizontalLine(True)
-        self.horizontalLine(False)
-        self.verticalLine(True)
-        self.verticalLine(False)
+        if self.small:
+            self.canvas = tk.Canvas(self.window,
+            width = (self.right - self.left), height = (self.bottom - self.top))
+            self.canvas.place(x = self.left, y = self.top)
+            self.canvas.config(bd = 2, relief = "solid")
+        else:
+            self.canvas = tk.Canvas(self.window, width = (self.left + self.right),
+            height = (self.bottom + self.top))
+            self.canvas.grid(row = 0, column = 0)
+            self.horizontalLine(True)
+            self.horizontalLine(False)
+            self.verticalLine(True)
+            self.verticalLine(False)
 
     """
     * Purpose: creates a horizontal line
@@ -119,7 +130,12 @@ class Card:
             self.messageWindow = tk.Message(self.window, text = self.back,
             width = (self.right - self.left - 100))
             self.setFont(self.back, self.messageWindow, True)
-        self.messageWindow.grid(row = 0, column = 0)
+        if self.small:
+            self.messageWindow.place(x = (((self.right - self.left) / 2) +
+            self.left - ((self.right - self.left - 100) / 2)), y = ((self.bottom
+             - self.top) / 2) + self.top - 20)
+        else:
+            self.messageWindow.grid(row = 0, column = 0)
 
     """
     * Purpose: determines the size of the font based on the length of the text
@@ -130,10 +146,16 @@ class Card:
     * Notes: want to change this so the cutoffs scale with the size of the card
     """
     def setFont(self, text, message, big = False):
-        if len(text) < 20 and big:
-            message.config(font = ("Courier", 35))
-        elif len(text) < 55:
-            message.config(font = ("Courier", 25))
+        if self.small:
+            if len(text) < 7:
+                message.config(font = ("Courier", 25))
+            elif len(text) < 20:
+                message.config(font = ("Courier", 15))
+        else:
+            if len(text) < 20 and big:
+                message.config(font = ("Courier", 35))
+            elif len(text) < 55:
+                message.config(font = ("Courier", 25))
 
     """
     * Purpose: adds flip and hint buttons

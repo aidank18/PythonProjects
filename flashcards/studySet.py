@@ -1,5 +1,6 @@
 from Card import *
 from random import random
+import UpdateFile as up
 
 class StudySet:
 
@@ -48,6 +49,7 @@ class StudySet:
         test.set[0][0].display()
         self.addButtons()
         self.addNoMarkedMessage()
+        self.loadMark()
 
     def addNoMarkedMessage(self):
         if self.markedCount == 0:
@@ -69,6 +71,8 @@ class StudySet:
         self.resetButton.destroy()
         self.onlyMarkedButton.destroy()
         self.quitButton.destroy()
+        if self.noMarkedCardsMessage != None:
+            self.noMarkedCardsMessage.destroy()
 
     def addButtons(self):
         self.markButton = tk.Button(self.window, text = "Mark",
@@ -169,6 +173,7 @@ class StudySet:
 
     def clickQuit(self):
         self.delete()
+        up.update(self.set, self.setname)
 
     def clickStartOver(self):
         self.set[self.order[self.curr]][0].delete()

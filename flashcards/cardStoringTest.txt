@@ -2,19 +2,29 @@ Hola
 Greeting
 Hello
 
-F
-Yo
-
-I
-not you
-F
+T
 Aquí
 
 Here
 
-T
-word(with parenthesis)
+F
+Tienda
 
-back with random parenthesis )
+Shop
 
-T
+F
+La Calle
+not carro
+the street
+not car
+F
+Divertido
+
+Fun
+
+F
+cumpleaños
+
+Birthday
+
+F
